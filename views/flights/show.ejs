@@ -1,0 +1,91 @@
+<%- include('../partials/header') %>
+
+<div class="wrapper">
+  <div class="one">
+<section id="show-page">
+  <div class="a">Airline: </div> 
+    <div class="a"><%= flight.airline %></div>
+    <br><br>
+  <div >Airport: </div>
+  <div class="a"><%= flight.airport %></div>
+  <br><br>
+  <div>FlightNumber: </div>
+  <div><%= flight.flightNo %></div>
+  <br><br>
+  <div>Departure: </div>
+  <div><%=flight.departure.toLocaleDateString() + ' ' + flight.departure.toLocaleTimeString() %></div>
+</section>
+  </div>
+
+
+    <div class="two">
+        <h4>Destinations of flight <%= flight.flightNo %>: </h4>
+    
+        <% flight.destinations.forEach(function(f) { %>
+            <div>Airport:</div>
+            <div><%= f.destAirport %></div>
+            <div>Arrival:</div>
+            <div><%= f.arrival.toLocaleDateString() + ' ' + f.arrival.toLocaleTimeString() %></div>
+          <br><br>
+            <% }); %>
+    </div>
+
+    <br><br>
+
+    <div class="three">
+    <div>Tickets:</div>
+    <ul>
+        <% tickets.forEach(function(t) { %>
+            <div>Seat:</div>
+          <div><%= t.seat %></div>
+          <div>Price:</div>
+          <div><%= t.price %></div>
+          <br><br>
+        <% }); %>
+    </ul>
+  </div>
+
+
+<div class="four">
+<form id="add-destination-form" method="POST"
+  action="/flights/<%= flight._id %>/destinations">
+  <h4>Destination:</h4> 
+  <label>Airport:</label>
+  <select name="destAirport">
+    <option value="AUS">AUS</option>
+    <option value="SIN">SIN</option>
+    <option value="HKG">HKG</option>
+    <option value="PEK">PEK</option>
+    <option value="DXB">DXB</option>
+    <option value="CDG">CDG</option>
+    <option value="LHR">LHR</option>
+    <option value="FRA">FRA</option>
+    <option value="IST">IST</option>
+    <option value="JFK">JFK</option>
+  </select>
+  <br><br>
+  <label>Arrival:</label>
+  <input type="datetime-local" name="arrival" value=<%= arrivalDate %>>
+  <br><br>
+  <input type="submit" value="Add destination">
+</form>
+</div>
+
+<div class="five">
+<form id="add-ticket-form" method="POST"
+    action="/flights/<%= flight._id %>/tickets">
+    <h4>Tickets:</h4> 
+    <label>Seat:</label>
+    <input name="seat" required pattern="[A-F][1-9]\d?">
+    <br><br>
+    <label>Price:</label>
+    <input name="price">
+    <br><br>
+    <button type="submit">Add to Tickets</button>
+</form>
+</div>
+
+</div>
+
+<%- include('../partials/footer') %>
+

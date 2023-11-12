@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<div>Before adding, please ensure that the ticket is not in the following list:</div>
+<section id="badge-container">
+  <% tickets.forEach(function(t) { %>
+    <article class="badge"><%= t.seat %></article>
+  <% }) %>
+</section>
+
+<form id="add-ticket-form" action="/tickets" method="POST">
+  <label>Seat:</label>
+  <input type="text" name="seat">
+  <label>Price:</label>
+  <input type="text" name="price">
+  <input type="submit" value="Add Ticket">
+</form>
+
+<%- include('../partials/footer') %>
